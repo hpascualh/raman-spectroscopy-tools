@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Combine the spectra from every Spot map in one sample folder and plot mean +/- SD.
 
-Keep this script in the same directory as plot_map_average_v2.py.
+Keep this script in the same directory as plot_xplora_maps.py.
 Example:
-    python scripts/xplora/plot_all_spots_average_named.py "path/to/sample_folder"
+    python scripts/xplora/plot_xplora_sample.py "path/to/sample_folder"
 """
 
 import argparse
@@ -11,7 +11,7 @@ import re
 from pathlib import Path
 
 import numpy as np
-from plot_map_average_v2 import (load_xplora_map2array, remove_outlier_spectra,
+from plot_xplora_maps import (load_xplora_map2array, remove_outlier_spectra,
                                  make_plot_title, plot_map_average)
 
 

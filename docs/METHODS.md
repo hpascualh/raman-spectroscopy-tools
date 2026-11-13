@@ -11,7 +11,7 @@ This document records **what the uploaded scripts do**. It is not a recommendati
 5. The per-map and pooled-sample scripts calculate mean and population-standard-deviation (`ddof=0`) across retained individual spectra and then **normalize the mean and SD again** by the mean's maximum in the silicon window. This changes scale but is part of current behavior.
 6. The pooled-sample script requires matching Raman-shift grids between maps (absolute tolerance 0.05 cm⁻¹). It does not resample or interpolate map spectra.
 7. The XploRA plots use a fixed 380–2020 cm⁻¹ range and shaded mean ± SD. Pooled CSV columns are `raman_shift,mean,std` and represent derived **sample averages**, not individual training spectra.
-8. `compare_sample_averages_from_csv.py` requires directly matching saved shift grids. It offsets mean curves by `i * offset`, displays optional ±SD shading, and deliberately has its legend commented out in the current source.
+8. `compare_xplora_samples.py` requires directly matching saved shift grids. It offsets mean curves by `i * offset`, displays optional ±SD shading, and labels curves using the sample-name tokens that differ between files (or the full label when no tokens differ). Labels may be hidden with `--no-labels`.
 
 ## Portable i-Raman processing
 

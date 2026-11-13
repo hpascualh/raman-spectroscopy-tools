@@ -3,8 +3,8 @@
 
 Examples
 --------
-python compare_sample_averages_from_csv.py "results/all_spots_average/*_all_spots_average.csv" --offset 0.8
-python compare_sample_averages_from_csv.py \
+python scripts/xplora/compare_xplora_samples.py "results/all_spots_average/*_all_spots_average.csv" --offset 0.8
+python scripts/xplora/compare_xplora_samples.py \
     "results/all_spots_average/sample1_all_spots_average.csv" \
     "results/all_spots_average/sample2_all_spots_average.csv" \
     --offset 1.0 --title "4 bacterial species"
@@ -12,6 +12,8 @@ python compare_sample_averages_from_csv.py \
 
 import argparse
 import glob
+import re
+import textwrap
 from pathlib import Path
 
 import matplotlib
@@ -28,12 +30,23 @@ def pretty_label(csv_path: Path) -> str:
     return name
 
 
+def comparison_labels(names):
+    """Show the tokens that distinguish sample names, retaining the full name if needed."""
+    parts = [re.split(r"[_\s]+", name) for name in names]
+    shared = set(token.casefold() for token in parts[0])
+    for tokens in parts[1:]:
+        shared &= {token.casefold() for token in tokens}
+    return [" ".join(token for token in tokens if token.casefold() not in shared) or name.replace("_", " ")
+            for name, tokens in zip(names, parts)]
+
+
 def main():
     parser = argparse.ArgumentParser(description="Offset plot of pooled sample means from saved CSV files")
     parser.add_argument("csv_files", nargs="+", help="CSV files or wildcard patterns, in bottom-to-top plot order")
     parser.add_argument("--offset", type=float, default=0.8, help="Vertical distance between spectra (default: 0.8)")
     parser.add_argument("--no-std", action="store_true", help="Hide standard-deviation shading")
-    parser.add_argument("--title", default="4 species comparison - 1 EOD, 0.325 nM", help="Figure title")
+    parser.add_argument("--title", default="Sample comparison", help="Figure title (default: Sample comparison)")
+    parser.add_argument("--no-labels", action="store_true", help="Hide sample labels on the right side of the plot")
     parser.add_argument("--output", default=None, help="Output PNG path (default: results/all_spots_average/sample_comparison_offset.png)")
     args = parser.parse_args()
 
@@ -76,9 +89,17 @@ def main():
             parser.error(f"Raman shifts in {name} do not match the first sample; cannot overlay directly")
 
     fig, ax = plt.subplots(figsize=(6, 5))
-    for i, (name, x, mean, std) in enumerate(samples):
+    labels = comparison_labels([name for name, _, _, _ in samples])
+    for i, ((name, x, mean, std), label) in enumerate(zip(samples, labels)):
         y = mean + i * args.offset
-        ax.plot(x, y, linewidth=1.5, label=name)
+        ax.plot(x, y, linewidth=1.5)
+        if not args.no_labels:
+            visible = (x >= 380) & (x <= 2020)
+            if visible.any():
+                label_x, label_y = x[visible][-1], y[visible][-1]
+                ax.annotate(textwrap.fill(label, width=28, break_long_words=False),
+                            xy=(label_x, label_y), xytext=(9, 0), textcoords="offset points",
+                            ha="left", va="center", fontsize=9, annotation_clip=False)
         if not args.no_std:
             ax.fill_between(x, y - std, y + std, color="#808080", alpha=0.2, linewidth=0)
 
@@ -94,8 +115,6 @@ def main():
                    right=False, labelright=False, labelsize=10)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
-    # ax.legend()
-    # ax.legend(loc="upper left", bbox_to_anchor=(1.02, 1), frameon=False, fontsize=9)
     fig.tight_layout()
 
     default_out = Path("results") / "all_spots_average" / "sample_comparison_offset.png"

@@ -3,7 +3,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from plot_iraman_from_folder import (
+from plot_iraman_samples import (
     align_spectra,
     comparison_conditions,
     load_spectrum,

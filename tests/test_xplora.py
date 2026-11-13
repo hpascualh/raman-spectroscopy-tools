@@ -2,7 +2,9 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from plot_map_average_v2 import (
+from compare_xplora_samples import comparison_labels
+
+from plot_xplora_maps import (
     load_xplora_map2array,
     make_output_name,
     make_plot_title,
@@ -55,3 +57,9 @@ def test_map_title_and_output_name():
     assert 'SYN-Q001' in make_plot_title(SAMPLE)
     assert 'Spot 1' in make_plot_title(SAMPLE)
     assert make_output_name(SAMPLE).endswith('_Spot1_average.png')
+
+
+def test_comparison_labels_keep_only_sample_differences():
+    names = ['SYN-Q001_1EOD_Citrate_LA_MUAM', 'SYN-Q002_1EOD_Citrate_LA_MUAM']
+    assert comparison_labels(names) == ['SYN-Q001', 'SYN-Q002']
+    assert comparison_labels(['Sample1']) == ['Sample1']

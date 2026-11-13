@@ -39,3 +39,7 @@ cache/
 .env
 .env.*
 local_config.*
+
+# README illustrations are intentionally versioned, unlike generated results.
+!assets/
+!assets/*.png

@@ -2,9 +2,9 @@
 """Process single-spectrum SP_<number>.txt Raman files from one experiment day.
 
 From the repository root, for example:
-    python scripts/iraman/plot_iraman_from_folder.py "20261105_experiment"
-    python scripts/iraman/plot_iraman_from_folder.py "20261105_experiment" --no-baseline --norm max
-    python scripts/iraman/plot_iraman_from_folder.py "20261105_experiment" --offset 0.8 --no-std
+    python scripts/iraman/plot_iraman_samples.py "20261105_experiment"
+    python scripts/iraman/plot_iraman_samples.py "20261105_experiment" --no-baseline --norm max
+    python scripts/iraman/plot_iraman_samples.py "20261105_experiment" --offset 0.8 --no-std
 
 Each immediate sample subfolder is processed only if it contains SP_<number>.txt files.
 No Excel conversion or ordering/continuous spectrum indices are required.
