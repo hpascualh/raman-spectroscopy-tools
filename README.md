@@ -1,6 +1,10 @@
 # Raman Spectroscopy — Processing & Plotting
 
+<<<<<<< HEAD
 Python tools for turning **XploRA Raman maps** and **portable i-Raman spectra** into clean average spectra, sample comparisons, and exportable figures. Designed for routine use in the Ragan Lab.
+=======
+Small, script-based tools for processing and visualizing XploRA Raman maps and portable i-Raman single-spectrum exports. Intended as a **lab-oriented starter repository**, with minimal modifications to the original working scripts. This repository does **not** contain experimental datasets.
+>>>>>>> bb13e46c7f314e20bd5769dc1fc0c45e75565f73
 
 ## What do the scripts produce?
 
