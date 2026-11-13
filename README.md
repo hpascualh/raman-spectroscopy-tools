@@ -1,6 +1,6 @@
 # Raman spectroscopy processing and plotting tools
 
-Small, script-based tools for processing and visualizing XploRA Raman maps and portable i-Raman single-spectrum exports. Intended as a **lab-oriented starter repository**, with minimal modifications to the original working scripts. This repository does **not** contain bacterial-identification ML code or experimental datasets.
+Small, script-based tools for processing and visualizing XploRA Raman maps and portable i-Raman single-spectrum exports. Intended as a **lab-oriented starter repository**, with minimal modifications to the original working scripts. This repository does **not** contain experimental datasets.
 
 > **Status:** Working starter version validated with **synthetic** sample files on Python 3.13 (NumPy 2.3.5, SciPy 1.17.0, Matplotlib 3.10.8). **Not yet validated on real instrument exports or Windows.** Confirm instrument format, preprocessing settings, and scientific suitability for each dataset.
 
