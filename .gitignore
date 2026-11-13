@@ -1,0 +1,41 @@
+# Python virtual environments / cache
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.DS_Store
+
+# Workstation / editor configuration
+.vscode/
+.idea/
+*.swp
+
+# Raw experimental files and derived outputs (use data/ as local input space)
+data/
+raw_data/
+**/results/
+results/
+outputs/
+cache/
+
+# Large intermediate arrays, models, or exported plots
+*.npy
+*.npz
+*.pickle
+*.pkl
+*.joblib
+*.h5
+*.hdf5
+*.png
+*.jpg
+*.jpeg
+*.tif
+*.tiff
+
+# Sensitive/local overrides; do not store secrets in config files
+.env
+.env.*
+local_config.*
